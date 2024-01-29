@@ -16,8 +16,9 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Integer> numerosRifas = new ArrayList<Integer>();
-        for (int i = 1; i <= 100000; i++) {
-            numerosRifas.add(i);
+        for (int i = 0; i < 1000; i++) {
+            String numeroFormatado = String.format("%06d", i);
+            numerosRifas.add(Integer.parseInt(numeroFormatado));
         }
 
         Usuario usuario = null;
@@ -54,7 +55,7 @@ public class App {
                         } else {
                             System.out.println("Este CPF já está em uso. Digite outro.");
                         }
-                    
+
                         System.out.print("Digite novamente: ");
                         cpf = scanner.next();
                     }
@@ -139,19 +140,20 @@ public class App {
                                 break;
                             case 5:
                                 System.out.println("======================");
-                                System.out.println("|    MEGA RR BANK    |");
+                                System.out.println("|    RIFA RR BANK    |");
                                 System.out.println("======================");
                                 System.out.println(" ");
                                 System.out.println("Resultado pela loteria federal!");
-                                System.out.println("(1) Comprar números da mega.");
+                                System.out.println("(1) Comprar cotas.");
                                 System.out.println("(2) Consultar meus números.");
                                 System.out.println(" ");
                                 System.out.print("Selecione uma opção:");
                                 int opcaoMegaRRBank = scanner.nextInt();
                                 Clear.limparConsole();
- 
+
                                 switch (opcaoMegaRRBank) {
-                                    case 1:  
+                                    case 1:
+                                        System.out.println("Restam " + numerosRifas.size() + " cotas.");
                                         System.out.println("Valor da cota R$0.99");
                                         System.out.print("Escolha a quantidade de cotas: ");
                                         int quantCotas = scanner.nextInt();
@@ -160,16 +162,20 @@ public class App {
                                         if (usuario.getSaldo() >= valorCompra) {
                                             ArrayList<Integer> numerosJogo = new ArrayList<>();
 
-                                            for (int i = 0; i < quantCotas; i++) {                                       
-                                                int numeroAleatorio = numerosRifas.remove(new Random().nextInt(numerosRifas.size()));
+                                            for (int i = 0; i < quantCotas; i++) {
+                                                int numeroAleatorio = numerosRifas
+                                                        .remove(new Random().nextInt(numerosRifas.size()));
                                                 numerosJogo.add(numeroAleatorio);
                                             }
                                             System.out.println(" ");
-                                            System.out.print("Cotas compradas: ");
-                                            System.out.println(numerosJogo);
+                                            System.out.print("Cotas compradas: [ ");
+                                            for (Integer numero : numerosJogo) {
+                                                System.out.print(String.format("%06d", numero) + ", ");
+                                            }
+                                            System.out.println("]");
                                             System.out.println(" ");
 
-                                            usuario.adicionarNumerosEscolhidos(numerosJogo); 
+                                            usuario.adicionarNumerosEscolhidos(numerosJogo);
                                             caixa.compraRifa(usuario, valorCompra);
                                         } else {
                                             System.out.println("Saldo abaixo do valor de compra.");
@@ -185,7 +191,11 @@ public class App {
                                         System.out.println("|  CONSULTAR NÚMEROS  |");
                                         System.out.println("=======================");
 
-                                        System.out.println(usuario.getNumerosEscolhidos());
+                                        System.out.println(" ");
+                                        System.out.print("Suas cotas: ");
+                                        for (Integer numero : usuario.getNumerosEscolhidos()) {
+                                            System.out.print(String.format("%06d", numero) + " ");
+                                        }
 
                                         System.out.println("");
                                         Clear.aguardarEnter(scanner);
@@ -287,41 +297,47 @@ public class App {
                                     break;
                                 case 5:
                                     System.out.println("======================");
-                                    System.out.println("|    MEGA RR BANK    |");
+                                    System.out.println("|    RIFA RR BANK    |");
                                     System.out.println("======================");
                                     System.out.println(" ");
-                                    System.out.println("(1) Comprar números da mega.");
+                                    System.out.println("Resultado pela loteria federal.");
+                                    System.out.println("(1) Comprar cotas.");
                                     System.out.println("(2) Consultar meus números.");
                                     System.out.println(" ");
                                     System.out.print("Selecione uma opção:");
                                     int opcaoMegaRRBank = scanner.nextInt();
                                     Clear.limparConsole();
-     
+
                                     switch (opcaoMegaRRBank) {
-                                        case 1:  
+                                        case 1:
+                                            System.out.println("Restam " + numerosRifas.size() + " cotas.");
                                             System.out.println("Valor da cota R$0.99");
                                             System.out.print("Escolha a quantidade de cotas: ");
                                             int quantCotas = scanner.nextInt();
                                             double valorCompra = (quantCotas * 0.99);
-    
+
                                             if (usuario.getSaldo() >= valorCompra) {
                                                 ArrayList<Integer> numerosJogo = new ArrayList<>();
-    
-                                                for (int i = 0; i < quantCotas; i++) {                                       
-                                                    int numeroAleatorio = numerosRifas.remove(new Random().nextInt(numerosRifas.size()));
+
+                                                for (int i = 0; i < quantCotas; i++) {
+                                                    int numeroAleatorio = numerosRifas
+                                                            .remove(new Random().nextInt(numerosRifas.size()));
                                                     numerosJogo.add(numeroAleatorio);
                                                 }
                                                 System.out.println(" ");
-                                                System.out.print("Cotas compradas: " );
-                                                System.out.println(numerosJogo);
+                                                System.out.print("Cotas compradas: [ ");
+                                                for (Integer numero : numerosJogo) {
+                                                    System.out.print(String.format("%06d", numero) + ", ");
+                                                }
+                                                System.out.println("]");
                                                 System.out.println(" ");
-    
-                                                usuario.adicionarNumerosEscolhidos(numerosJogo); 
+
+                                                usuario.adicionarNumerosEscolhidos(numerosJogo);
                                                 caixa.compraRifa(usuario, valorCompra);
                                             } else {
                                                 System.out.println("Saldo abaixo do valor de compra.");
                                             }
-    
+
                                             System.out.println("");
                                             Clear.aguardarEnter(scanner);
                                             System.out.println("");
@@ -331,16 +347,20 @@ public class App {
                                             System.out.println("=======================");
                                             System.out.println("|  CONSULTAR NÚMEROS  |");
                                             System.out.println("=======================");
-    
-                                            System.out.println(usuario.getNumerosEscolhidos());
-    
+
+                                            System.out.println(" ");
+                                            System.out.print("Suas cotas: ");
+                                            for (Integer numero : usuario.getNumerosEscolhidos()) {
+                                                System.out.print(String.format("%06d", numero) + " ");
+                                            }
+
                                             System.out.println("");
                                             Clear.aguardarEnter(scanner);
                                             System.out.println("");
                                             Clear.limparConsole();
                                             break;
                                     }
-                                    break;    
+                                    break;
                             }
 
                             System.out.print(menu2.getMenu2());

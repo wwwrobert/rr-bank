@@ -5,7 +5,7 @@ public class Caixa {
     public void deposito(Usuario usuario, double valor) {
         if (valor > 0) {
             usuario.realizarDeposito(valor);
-            System.out.println("Depósito de valor " + valor + " realizado com sucesso!");
+            System.out.println("Depósito de valor R$" + valor + " realizado com sucesso!");
             System.out.println("Novo saldo da conta: R$" + usuario.getSaldo());
         } else {
             System.out.println("Valor abaixo do esperado! O depósito deve ser maior que zero.");
@@ -15,7 +15,7 @@ public class Caixa {
     public void saque(Usuario usuario, double valor) {
         if (valor > 0 && valor < usuario.getSaldo()) {
             usuario.realizarSaque(valor);
-            System.out.println("Saque de valor " + valor + " realizado com sucesso!");
+            System.out.println("Saque de valor R$" + valor + " realizado com sucesso!");
             System.out.println("Novo saldo da conta: R$" + usuario.getSaldo());
         } else {
             System.out.println("Valor de saque inválido ou saldo insuficiente.");
@@ -38,7 +38,7 @@ public class Caixa {
     public void compraRifa(Usuario usuario, double valor) {
         if (valor > 0 && valor < usuario.getSaldo()) {
             usuario.realizarSaque(valor);
-            System.out.println("Compra de valor " + valor + " realizado com sucesso!");
+            System.out.println("Compra de valor R$" + valor + " realizado com sucesso!");
             System.out.println("Novo saldo da conta: R$" + usuario.getSaldo());
         } else {
             System.out.println("Valor de saque inválido ou saldo insuficiente.");

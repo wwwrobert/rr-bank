@@ -16,7 +16,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Integer> numerosRifas = new ArrayList<Integer>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000000; i++) {
             String numeroFormatado = String.format("%06d", i);
             numerosRifas.add(Integer.parseInt(numeroFormatado));
         }

@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 public class Caixa {
 
+
+    // Depósito
     public void deposito(Usuario usuario, double valor) {
         if (valor > 0) {
             usuario.realizarDeposito(valor);
@@ -15,21 +17,26 @@ public class Caixa {
         }
     }
 
+
+    // Saque
     public void saque(Usuario usuario, double valor) {
         if (valor > 0 && valor < usuario.getSaldo()) {
             usuario.realizarSaque(valor);
-            System.out.println("Saque de valor R$" + valor + " realizado com sucesso!");
+            System.out.print("Saque de valor R$" + valor + " realizado com sucesso!");
             System.out.println("Novo saldo da conta: R$" + usuario.getSaldo());
         } else {
             System.out.println("Valor de saque inválido ou saldo insuficiente.");
         }
     }
 
+
+    // Transferência 
     public boolean transferencia(Usuario origem, String cartaoDestino, double valor) {
         if (origem.getSaldo() >= valor) {
             for (Usuario destino : App.getListaUsuarios()) {
                 if (destino.getCartao().equals(cartaoDestino)) {
-                    origem.realizarSaque(valor);
+                    double valorTaxa = valor+(valor*(2.5/100));
+                    origem.realizarSaque(valorTaxa);
                     destino.realizarDeposito(valor);
                     return true;
                 }
@@ -38,6 +45,8 @@ public class Caixa {
         return false;
     }
 
+
+    // Rifa RR BANK
     public void compraRifa(Usuario usuario, double valor) {
         if (valor > 0 && valor < usuario.getSaldo()) {
             usuario.realizarSaque(valor);

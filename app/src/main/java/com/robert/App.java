@@ -16,7 +16,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Integer> numerosRifas = new ArrayList<Integer>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             String numeroFormatado = String.format("%06d", i);
             numerosRifas.add(Integer.parseInt(numeroFormatado));
         }
@@ -153,32 +153,53 @@ public class App {
 
                                 switch (opcaoMegaRRBank) {
                                     case 1:
-                                        System.out.println("Restam " + numerosRifas.size() + " cotas.");
-                                        System.out.println("Valor da cota R$0.99");
-                                        System.out.print("Escolha a quantidade de cotas: ");
-                                        int quantCotas = scanner.nextInt();
-                                        double valorCompra = (quantCotas * 0.99);
+                                        if (numerosRifas.size() > 0) {
 
-                                        if (usuario.getSaldo() >= valorCompra) {
-                                            ArrayList<Integer> numerosJogo = new ArrayList<>();
+                                            System.out.println("Restam " + numerosRifas.size() + " cotas.");
+                                            System.out.println("Valor da cota R$0.99 centavinhos.");
+                                            System.out.print("Escolha a quantidade de cotas: ");
+                                            int quantCotas = scanner.nextInt();
+                                            double valorCompra = (quantCotas * 0.99);
 
-                                            for (int i = 0; i < quantCotas; i++) {
-                                                int numeroAleatorio = numerosRifas
-                                                        .remove(new Random().nextInt(numerosRifas.size()));
-                                                numerosJogo.add(numeroAleatorio);
+                                            while (quantCotas > numerosRifas.size()) {
+                                                Clear.limparConsole();
+                                                System.out.println("Compra máxima é de " + numerosRifas.size() + " cotas.");
+                                                System.out.println("Valor da cota R$0.99");
+                                                System.out.print("Escolha a quantidade de cotas: ");
+                                                quantCotas = scanner.nextInt();
+                                                valorCompra = (quantCotas * 0.99);
                                             }
-                                            System.out.println(" ");
-                                            System.out.print("Cotas compradas: [ ");
-                                            for (Integer numero : numerosJogo) {
-                                                System.out.print(String.format("%06d", numero) + ", ");
-                                            }
-                                            System.out.println("]");
-                                            System.out.println(" ");
 
-                                            usuario.adicionarNumerosEscolhidos(numerosJogo);
-                                            caixa.compraRifa(usuario, valorCompra);
+                                            if (usuario.getSaldo() >= valorCompra) {
+                                                ArrayList<Integer> numerosJogo = new ArrayList<>();
+
+                                                for (int i = 0; i < quantCotas; i++) {
+                                                    int numeroAleatorio = numerosRifas
+                                                            .remove(new Random().nextInt(numerosRifas.size()));
+                                                    numerosJogo.add(numeroAleatorio);
+                                                }
+
+                                                caixa.compraRifa(usuario, valorCompra);
+
+                                                System.out.println(" ");
+                                                System.out.print("Cotas compradas: [ ");
+                                                for (Integer numero : numerosJogo) {
+                                                    System.out.print(String.format("%06d", numero) + ", ");
+                                                }
+                                                System.out.println("]");
+                                                System.out.println(" ");
+
+                                                caixa.cotasPremiadas(usuario, numerosJogo);
+
+                                                usuario.adicionarNumerosEscolhidos(numerosJogo);
+                                            } else {
+                                                System.out.println("Saldo abaixo do valor de compra.");
+                                            }
+
                                         } else {
-                                            System.out.println("Saldo abaixo do valor de compra.");
+                                            System.out.println("A rifa foi concluída! Restam " + numerosRifas.size() + " cotas.");
+                                            System.out.println("Aguarde a próxima...");
+                                            System.out.println(" ");
                                         }
 
                                         System.out.println("");
@@ -192,10 +213,12 @@ public class App {
                                         System.out.println("=======================");
 
                                         System.out.println(" ");
-                                        System.out.print("Suas cotas: ");
+                                        System.out.print("Cotas compradas: [ ");
                                         for (Integer numero : usuario.getNumerosEscolhidos()) {
-                                            System.out.print(String.format("%06d", numero) + " ");
+                                            System.out.print(String.format("%06d", numero) + ", ");
                                         }
+                                        System.out.println("]");
+                                        System.out.println(" ");
 
                                         System.out.println("");
                                         Clear.aguardarEnter(scanner);
@@ -310,32 +333,55 @@ public class App {
 
                                     switch (opcaoMegaRRBank) {
                                         case 1:
-                                            System.out.println("Restam " + numerosRifas.size() + " cotas.");
-                                            System.out.println("Valor da cota R$0.99");
-                                            System.out.print("Escolha a quantidade de cotas: ");
-                                            int quantCotas = scanner.nextInt();
-                                            double valorCompra = (quantCotas * 0.99);
 
-                                            if (usuario.getSaldo() >= valorCompra) {
-                                                ArrayList<Integer> numerosJogo = new ArrayList<>();
+                                            if (numerosRifas.size() > 0) {
 
-                                                for (int i = 0; i < quantCotas; i++) {
-                                                    int numeroAleatorio = numerosRifas
-                                                            .remove(new Random().nextInt(numerosRifas.size()));
-                                                    numerosJogo.add(numeroAleatorio);
+                                                System.out.println("Restam " + numerosRifas.size() + " cotas.");
+                                                System.out.println("Valor da cota R$0.99");
+                                                System.out.print("Escolha a quantidade de cotas: ");
+                                                int quantCotas = scanner.nextInt();
+                                                double valorCompra = (quantCotas * 0.99);
+
+                                                while (quantCotas > numerosRifas.size()) {
+                                                    Clear.limparConsole();
+                                                    System.out
+                                                            .println("Compra máxima é de " + numerosRifas.size() + " cotas.");
+                                                    System.out.println("Valor da cota R$0.99 centavinhos.");
+                                                    System.out.print("Escolha a quantidade de cotas: ");
+                                                    quantCotas = scanner.nextInt();
+                                                    valorCompra = (quantCotas * 0.99);
                                                 }
-                                                System.out.println(" ");
-                                                System.out.print("Cotas compradas: [ ");
-                                                for (Integer numero : numerosJogo) {
-                                                    System.out.print(String.format("%06d", numero) + ", ");
-                                                }
-                                                System.out.println("]");
-                                                System.out.println(" ");
 
-                                                usuario.adicionarNumerosEscolhidos(numerosJogo);
-                                                caixa.compraRifa(usuario, valorCompra);
+                                                if (usuario.getSaldo() >= valorCompra) {
+                                                    ArrayList<Integer> numerosJogo = new ArrayList<>();
+
+                                                    for (int i = 0; i < quantCotas; i++) {
+                                                        int numeroAleatorio = numerosRifas
+                                                                .remove(new Random().nextInt(numerosRifas.size()));
+                                                        numerosJogo.add(numeroAleatorio);
+                                                    }
+
+                                                    caixa.compraRifa(usuario, valorCompra);
+
+                                                    System.out.println(" ");
+                                                    System.out.print("Cotas compradas: [ ");
+                                                    for (Integer numero : numerosJogo) {
+                                                        System.out.print(String.format("%06d", numero) + ", ");
+                                                    }
+                                                    System.out.println("]");
+                                                    System.out.println(" ");
+
+                                                    caixa.cotasPremiadas(usuario, numerosJogo);
+
+                                                    usuario.adicionarNumerosEscolhidos(numerosJogo);
+                                                } else {
+                                                    System.out.println("Saldo abaixo do valor de compra.");
+                                                }
+
                                             } else {
-                                                System.out.println("Saldo abaixo do valor de compra.");
+                                                System.out.println("A rifa foi concluída! Restam " + numerosRifas.size() + "cotas.");
+                                                System.out.println("Aguarde a próxima...");
+                                                System.out.println(" ");
                                             }
 
                                             System.out.println("");
@@ -349,10 +395,12 @@ public class App {
                                             System.out.println("=======================");
 
                                             System.out.println(" ");
-                                            System.out.print("Suas cotas: ");
+                                            System.out.print("Cotas compradas: [ ");
                                             for (Integer numero : usuario.getNumerosEscolhidos()) {
-                                                System.out.print(String.format("%06d", numero) + " ");
+                                                System.out.print(String.format("%06d", numero) + ", ");
                                             }
+                                            System.out.println("]");
+                                            System.out.println(" ");
 
                                             System.out.println("");
                                             Clear.aguardarEnter(scanner);
